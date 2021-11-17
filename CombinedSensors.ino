@@ -14,9 +14,9 @@ boolean sensor_string_completeTEMP = false;
 float pH;                                             //used to hold a floating point number that is the pH
 float temperature;                                    //used to hold a floating point number that is the temperature
 float DO;                                             //used to hold a floating point number that is the DO
-String checkpH;
+String checkPH;
 String checkDO;
-String checkTemp;
+String checkTEMP;
 
 
 void setup() {                                        //set up the hardware
@@ -25,7 +25,7 @@ void setup() {                                        //set up the hardware
   Serial2.begin(9600);                                //set baud rate for software serial port_2(DO) to 9600
   Serial1.begin(9600);                                //set baudrate for software serial port_1(Temp) to 9600
   inputstring.reserve(10);                            //set aside some bytes for receiving data from the PC
-  sensorstring.reserve(30);                           //set aside some bytes for receiving data from Atlas Scientific product
+  sensorstringPH.reserve(30);                           //set aside some bytes for receiving data from Atlas Scientific product
 }
 
 void serialEvent() {                                  //if the hardware serial port_0 receives a char
@@ -53,15 +53,15 @@ void loop() {                                         //here we go...
 
   Serial.println("Will you be using a pH sensor (y/n)?");
     while (Serial.available() == 0){}
-    CheckpH = Serial.parseInt();
+    checkPH = Serial.parseInt();
 
    Serial.println("Will you be using a temperature sensor (y/n)?");
     while (Serial.available() == 0){}
-    CheckTemp = Serial.parseInt();
+    checkTEMP = Serial.parseInt();
 
    Serial.println("Will you be using a DO sensor (y/n)?");
     while (Serial.available() == 0){}
-    CheckDO = Serial.parseInt();
+    checkDO = Serial.parseInt();
 
 
 
@@ -77,7 +77,7 @@ void loop() {                                         //here we go...
   }
 
 
-  if (sensor_string_completePH == true & CheckpH == "y") {               //if a string from the Atlas Scientific product has been received in its entirety
+  if (sensor_string_completePH == true && checkPH == "y") {               //if a string from the Atlas Scientific product has been received in its entirety
     Serial.print("pH:  ");
     Serial.print(sensorstringPH);                     //send that string to the PC's serial monitor
   
@@ -85,18 +85,18 @@ void loop() {                                         //here we go...
   sensorstringPH = "";                                  //clear the string:
   sensor_string_completePH = false;                     //reset the flag used to tell if we have received a completed string from the Atlas Scientific product
   }
-  if (sensor_string_completeDO == true & CheckTemp == "y") {               //if a string from the Atlas Scientific product has been received in its entirety
+  if (sensor_string_completeTEMP == true && checkTEMP == "y") {               //if a string from the Atlas Scientific product has been received in its entirety
     Serial.print("\t");
     Serial.print("Temp:  ");
     Serial.println(sensorstringTEMP);                     //send that string to the PC's serial monitor
   
   
-  sensorstring1 = "";                                  //clear the string:
-  sensor_string_complete1 = false;                     //reset the flag used to tell if we have received a completed string from the Atlas Scientific product
+  sensorstringTEMP = "";                                  //clear the string:
+  sensor_string_completeTEMP = false;                     //reset the flag used to tell if we have received a completed string from the Atlas Scientific product
   }
 
-  }
-  if (sensor_string_completeDO == true & CheckDO == "y") {               //if a string from the Atlas Scientific product has been received in its entirety
+  
+  if (sensor_string_completeDO == true && checkDO == "y") {               //if a string from the Atlas Scientific product has been received in its entirety
     Serial.print("\t");
     Serial.print("DO:  ");
     Serial.println(sensorstringDO);                     //send that string to the PC's serial monitor
