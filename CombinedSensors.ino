@@ -14,9 +14,9 @@ boolean sensor_string_completeTEMP = false;
 float pH;                                             //used to hold a floating point number that is the pH
 float temperature;                                    //used to hold a floating point number that is the temperature
 float DO;                                             //used to hold a floating point number that is the DO
-String checkPH;
-String checkDO;
-String checkTEMP;
+char checkPH;
+char checkDO;
+char checkTEMP;
 
 
 void setup() {                                        //set up the hardware
